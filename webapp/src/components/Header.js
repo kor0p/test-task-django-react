@@ -28,7 +28,7 @@ const useStyles = makeStyles(({
   },
 }))
   
-const LinkRef = forwardRef(({ active, ...props }, ref) => {
+const LinkRef = forwardRef(({ active, navigate, ...props }, ref) => {
   const c = useStyles()
   return <Button
     {...props}

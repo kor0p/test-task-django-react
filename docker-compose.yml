@@ -1,11 +1,24 @@
-version: '3'
+version: '3.8'
 
 services:
-  web:
+  webapp:
+    build: ./webapp
+    command: npm run build
+    volumes:
+      - webapp:/webapp
+  api:
     build: .
     command: sh ./entrypoint.sh
     volumes:
       - .:/code
-      - .db_data/db.sqlite3:/db.sqlite3
+      - type: volume
+        source: webapp
+        target: /code/webapp
+        volume:
+          nocopy: true
     ports:
       - "8000:8000"
+    depends_on:
+      - webapp
+volumes:
+  webapp:
